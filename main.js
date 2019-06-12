@@ -6,7 +6,7 @@ Vue.component('product', {
     }
   },
   template: `
-      <div class="product">
+    <div class="product">
       <div class="product-image">
         <img :src="image">
       </div>
@@ -38,10 +38,6 @@ Vue.component('product', {
                 Add to Cart
         </button>
 
-        <div class="cart">
-          <p>Cart({{ cart }})</p>
-        </div>
-
       </div>
     </div>
   `,
@@ -70,7 +66,7 @@ Vue.component('product', {
   },
   methods: {
     addToCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
     },
     updateProduct(index) {
       this.selectedVariant = index
@@ -91,7 +87,7 @@ Vue.component('product', {
       if (this.premium) {
         return "Free"
       }
-      return `$2.99`
+      return 2.99
     }
   }
 })
@@ -99,6 +95,12 @@ Vue.component('product', {
 var app = new Vue({
     el: '#app',
     data: {
-      premium: false
+      premium: true,
+      cart: []
+    },
+    methods: {
+      updateCart(id) {
+        this.cart.push(id)
+      }
     }
 })
